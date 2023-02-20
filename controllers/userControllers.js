@@ -35,3 +35,15 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
     },
   });
 });
+
+export const getSingleUser = catchAsyncError(async (req, res, next) => {
+  const user_id = req.params.id;
+  const user = await User.findByPk(user_id);
+
+  res.status(200).json({
+    status: true,
+    content: {
+      data: user,
+    },
+  });
+});
