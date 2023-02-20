@@ -7,7 +7,7 @@ export const createStudent = catchAsyncError(async (req, res, next) => {
   const role = await Role.findOne({where: {id : req.roleId}});
   const scopes = role.scopes;
 
-  if(!scopes.includes("school-create")){
+  if(!scopes.includes("student-create")){
     return next(new ErrorHandler("User doesn't have access to this resource", 404));
   }
 
@@ -21,6 +21,23 @@ export const createStudent = catchAsyncError(async (req, res, next) => {
     status: true,
     content: {
       data: student,
+    },
+  });
+});
+
+export const getAllStudents = catchAsyncError(async (req, res, next) => {
+  const role = await Role.findOne({where: {id : req.roleId}});
+  const scopes = role.scopes;
+
+  if(!scopes.includes("student-get")){
+    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  }
+
+  const students = await Student.findAll({});
+  res.status(200).json({
+    status: true,
+    content: {
+      data: students,
     },
   });
 });
