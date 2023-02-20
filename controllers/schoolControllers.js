@@ -19,3 +19,14 @@ export const createSchool = catchAsyncError(async (req, res, next) => {
     },
   });
 });
+
+export const getAllSchools = catchAsyncError(async (req, res, next) => {
+  const schools = await School.findAll({});
+
+  res.status(200).json({
+    status: true,
+    content: {
+      data: schools,
+    },
+  });
+});
