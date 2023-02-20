@@ -42,7 +42,7 @@ const User = database.define(
 );
 
 User.prototype.getJWTToken = function () {
-   return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
+   return jwt.sign({ roleid: this.roleid }, process.env.JWT_SECRET, {
     expiresIn: "15d",
   });
 };
