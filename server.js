@@ -11,16 +11,3 @@ const PORT = process.env.PORT || 2905;
 app.listen(PORT, () => {
   console.log(`Server is working on port: ${PORT}`);
 });
-
-// adding routes
-import role from "./routes/roleRoutes.js";
-import user from "./routes/userRoutes.js";
-import school from "./routes/schoolRoutes.js";
-
-app.use("/", role);
-app.use("/", user);
-app.use("/", school);
-
-export default app;
-
-app.use(ErrorMiddleware);
