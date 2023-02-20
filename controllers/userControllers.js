@@ -2,7 +2,6 @@ import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import User from "../models/User.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import bcrypt from "bcrypt";
-import { v4, validate } from "uuid";
 import Role from "../models/Role.js";
 
 export const signup = catchAsyncError(async (req, res, next) => {
