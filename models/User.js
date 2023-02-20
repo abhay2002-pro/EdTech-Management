@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import { database } from "../config/database.js";
+import jwt from "jsonwebtoken"
 
 const User = database.define(
   "Users",
@@ -39,6 +40,12 @@ const User = database.define(
     },
   }
 );
+
+User.prototype.getJWTToken = function () {
+   return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
+    expiresIn: "15d",
+  });
+};
 
 User.sync().then(() => {
   console.log("User table synced");

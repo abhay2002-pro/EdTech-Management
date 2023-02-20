@@ -26,6 +26,25 @@ export const signup = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const signin = catchAsyncError(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ where: { email } });
+  if (!user) return next(new ErrorHandler("Incorrect Email", 404));
+
+  if (!bcrypt.compareSync(password, user.password))
+    return next(new ErrorHandler("Incorrect Password", 404));
+
+  const accessToken = user.getJWTToken();
+
+  res.status(200).json({
+    status: true,
+    content: {
+      data: accessToken,
+    },
+  });
+});
+
 export const getAllUsers = catchAsyncError(async (req, res, next) => {
   const users = await User.findAll({});
   res.status(200).json({
