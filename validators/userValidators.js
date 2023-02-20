@@ -23,3 +23,23 @@ export const signupValidation = async (req, res, next) => {
         }
     }).catch(err => console.log(err))
 };
+
+export const signinValidation = async (req, res, next) => {
+    const validationRule = {
+        "email": "required|email",
+        "password": "required|string|min:6",
+    }
+
+    await validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412)
+                .send({
+                    success: false,
+                    message: 'Validation failed',
+                    data: err
+                });
+        } else {
+            next();
+        }
+    }).catch(err => console.log(err))
+};
