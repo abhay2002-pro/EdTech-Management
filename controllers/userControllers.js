@@ -8,7 +8,7 @@ export const signup = catchAsyncError(async (req, res, next) => {
   const { first_name, last_name, email, mobile, password, roleId } = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
-  
+
   const role = await User.create({
     first_name,
     last_name,
@@ -22,6 +22,16 @@ export const signup = catchAsyncError(async (req, res, next) => {
     status: true,
     content: {
       data: role,
+    },
+  });
+});
+
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.findAll({});
+  res.status(200).json({
+    status: true,
+    content: {
+      data: users,
     },
   });
 });
