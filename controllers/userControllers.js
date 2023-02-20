@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import bcrypt from "bcrypt";
 import { v4, validate } from "uuid";
+import Role from "../models/Role.js";
 
 export const signup = catchAsyncError(async (req, res, next) => {
   const { first_name, last_name, email, mobile, password, roleId } = req.body;
@@ -46,6 +47,13 @@ export const signin = catchAsyncError(async (req, res, next) => {
 });
 
 export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const role = await Role.findOne({where: {id : req.roleId}});
+  const scopes = role.scopes;
+
+  if(!scopes.includes("user-get")){
+    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  }
+
   const users = await User.findAll({});
   res.status(200).json({
     status: true,
@@ -56,6 +64,13 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
 });
 
 export const getSingleUser = catchAsyncError(async (req, res, next) => {
+  const role = await Role.findOne({where: {id : req.roleId}});
+  const scopes = role.scopes;
+
+  if(!scopes.includes("user-get")){
+    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  }
+  
   const user_id = req.params.id;
   const user = await User.findByPk(user_id);
 
