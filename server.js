@@ -15,9 +15,11 @@ app.listen(PORT, () => {
 // adding routes
 import role from "./routes/roleRoutes.js";
 import user from "./routes/userRoutes.js";
+import school from "./routes/schoolRoutes.js";
 
 app.use("/", role);
 app.use("/", user);
+app.use("/", school);
 
 export default app;
 
