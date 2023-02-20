@@ -35,7 +35,7 @@ const School = database.define(
 );
 
 School.sync().then(() => {
-  console.log("Role table synced");
+  console.log("School table synced");
 });
 
 export default School;
