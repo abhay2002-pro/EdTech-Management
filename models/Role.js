@@ -17,8 +17,6 @@ const Role = database.define(
     updatedAt: "updated",
     hooks: {
       beforeValidate: (role, options) => {
-        console.log("---------------------------- ", role);
-        console.log("21");
         if (role.isNewRecord) {
           role.created = new Date();
           role.updated = null;
@@ -31,7 +29,7 @@ const Role = database.define(
 );
 
 Role.sync().then(() => {
-  console.log("Role table created");
+  console.log("Role table synced");
 });
 
 export default Role;
