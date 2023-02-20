@@ -46,11 +46,13 @@ export const signin = catchAsyncError(async (req, res, next) => {
 });
 
 export const getAllUsers = catchAsyncError(async (req, res, next) => {
-  const role = await Role.findOne({where: {id : req.roleId}});
+  const role = await Role.findOne({ where: { id: req.roleId } });
   const scopes = role.scopes;
 
-  if(!scopes.includes("user-get")){
-    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  if (!scopes.includes("user-get")) {
+    return next(
+      new ErrorHandler("User doesn't have access to this resource", 404)
+    );
   }
 
   const users = await User.findAll({});
@@ -63,16 +65,28 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
 });
 
 export const getSingleUser = catchAsyncError(async (req, res, next) => {
-  const role = await Role.findOne({where: {id : req.roleId}});
+  const role = await Role.findOne({ where: { id: req.roleId } });
   const scopes = role.scopes;
 
-  if(!scopes.includes("user-get")){
-    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  if (!scopes.includes("user-get")) {
+    return next(
+      new ErrorHandler("User doesn't have access to this resource", 404)
+    );
   }
-  
-  const user_id = req.params.id;
-  const user = await User.findByPk(user_id);
 
+  const user_id = req.params.id;
+  const isUUID =
+    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89AB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/i.test(
+      user_id
+    );
+  if (!isUUID) {
+    return next(new ErrorHandler("Invalid Id", 404));
+  }
+
+  const user = await User.findByPk(user_id);
+  if (!user) {
+    return next(new ErrorHandler("User not found in the database", 404));
+  }
   res.status(200).json({
     status: true,
     content: {

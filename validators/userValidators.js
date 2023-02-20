@@ -43,3 +43,22 @@ export const signinValidation = async (req, res, next) => {
         }
     }).catch(err => console.log(err))
 };
+
+export const getSingleUserValidation = async (req, res, next) => {
+    const validationRule = {
+        "id": "required|string|min:1",
+    }
+
+    await validator(req.params, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412)
+                .send({
+                    success: false,
+                    message: 'Validation failed',
+                    data: err
+                });
+        } else {
+            next();
+        }
+    }).catch(err => console.log(err))
+};
