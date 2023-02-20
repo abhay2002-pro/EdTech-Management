@@ -19,6 +19,13 @@ export const createRole = catchAsyncError(async (req, res, next) => {
 });
 
 export const getRoles = catchAsyncError(async (req, res, next) => {
+  const role = await Role.findOne({where: {id : req.roleId}});
+  const scopes = role.scopes;
+
+  if(!scopes.includes("role-get")){
+    return next(new ErrorHandler("User doesn't have access to this resource", 404));
+  }
+
   const roles = await Role.findAll({});
   res.status(200).json({
     status: true,
