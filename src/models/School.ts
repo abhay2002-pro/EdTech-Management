@@ -1,13 +1,6 @@
 import Sequelize from "sequelize";
 import { database } from "../config/database";
-
-interface SchoolAttributes {
-  id: string;
-  name: string;
-  city: string;
-  state: string;
-  country: string
-}
+import SchoolAttributes from "../interfaces/SchoolAttributes";
 
 const School = database.define<any, SchoolAttributes>("Schools", {
   id: {

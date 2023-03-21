@@ -1,11 +1,7 @@
 import Sequelize from "sequelize";
 import { database } from "../config/database";
+import RolesAttributes from "../interfaces/RoleAttributes";
 
-interface RolesAttributes {
-  id: string;
-  name: string;
-  scopes: string[];
-}
 
 const Roles = database.define<any, RolesAttributes>("Roles", {
   id: {

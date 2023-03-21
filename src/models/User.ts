@@ -1,17 +1,7 @@
 import Sequelize from "sequelize";
 import { database } from "../config/database";
 import jwt from "jsonwebtoken"
-
-interface UserAttributes {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  mobile: string;
-  password: string;
-  roleid: string;
-}
-
+import UserAttributes from "../interfaces/UserAttributes";
 
 const User = database.define<any, UserAttributes>(
   "Users",
@@ -43,7 +33,7 @@ const User = database.define<any, UserAttributes>(
 );
 
 User.prototype.getJWTToken = function () {
-  return jwt.sign({ roleid: this.roleid }, 'abcgfyhhvgxtfxetfgctrfcgcgytgvfgghgcf', {
+  return jwt.sign({ roleid: this.roleid }, 'aabhvagvagfabhjakmabuavayvaavyavagagfafgavavgagv', {
    expiresIn: "15d",
  });
 };

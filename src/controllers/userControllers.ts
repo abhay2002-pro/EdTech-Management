@@ -29,7 +29,6 @@ export const signup = catchAsyncError(async (req:  Request, res: Response, next:
 export const getAllUsers = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const users = await User.findAll({});
-    console.log(users);
     res.status(200).json({
       status: true,
       content: {
