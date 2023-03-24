@@ -4,9 +4,9 @@ import StudentAttributes from "@interfaces/StudentAttributes";
 
 const Student = database.define<any, StudentAttributes>("Students", {
   id: {
-    type: Sequelize.STRING,
+    type: Sequelize.UUID,
     primaryKey: true,
-    autoIncrement: true,
+    // autoIncrement: true,
   },
   name: {
     type: Sequelize.STRING,

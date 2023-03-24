@@ -1,12 +1,13 @@
 import { database } from "@universe/v1/models/database";
-import Sequelize from "sequelize";
+import Sequelize, { UUIDV4 } from "sequelize";
 import RolesAttributes from "@interfaces/RoleAttributes";
 
 const Role = database.define<any, RolesAttributes>("Roles", {
   id: {
-    type: Sequelize.STRING,
+    type: Sequelize.UUID,
     primaryKey: true,
-    autoIncrement: true,
+    defaultValue: UUIDV4
+    // autoIncrement: true,
   },
   name: {
     type: Sequelize.STRING,

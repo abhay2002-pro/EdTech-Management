@@ -7,9 +7,9 @@ const User = database.define<any, UserAttributes>(
   "Users",
   {
     id: {
-      type: Sequelize.STRING,
+      type: Sequelize.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      // autoIncrement: true,
     },
     first_name: {
       type: Sequelize.STRING,

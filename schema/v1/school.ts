@@ -1,4 +1,4 @@
-export const RoleColumn = {
+export const SchoolColumn = {
     id: "id",
     name: "name",
     city: "city",

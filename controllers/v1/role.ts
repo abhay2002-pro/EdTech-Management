@@ -8,7 +8,7 @@ class RoleController {
     }
 
     static async getRoles(req: Request, res: Response, next: NextFunction) {
-        const result = await RoleService.getRoles(req, res, next);
+        const result = await RoleService.getRoles();
         res.status(200).json(result);
     }
 }

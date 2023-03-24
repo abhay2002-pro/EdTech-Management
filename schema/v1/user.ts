@@ -1,4 +1,4 @@
-export const RoleColumn = {
+export const UserColumn = {
     id: "id",
     first_name: "first_name",
     last_name: "last_name",
